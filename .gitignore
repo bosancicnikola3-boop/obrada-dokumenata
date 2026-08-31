@@ -1,0 +1,8 @@
+# GitHub Pages
+*.xlsx
+Klijenti/
+ Obradjeni_fajlovi/
+ Preuzeti_fajlovi/
+# Ne publishovati privatne fajlove
+*.pdf
+*.docx

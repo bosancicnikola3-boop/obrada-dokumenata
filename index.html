@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document Processing — Review, summary, structure — 24h turnaround</title>
+<meta name="description" content="Professional document processing service: PDFs, Word, images, Excel, long text — reviewed, summarized, structured. First document free.">
+<style>
+  :root {
+    --bg: #0a0f1a;
+    --surface: #111827;
+    --surface2: #1a2332;
+    --border: #2a3a4f;
+    --text: #e8ecf1;
+    --text-muted: #91a4b8;
+    --accent: #f5b042;
+    --accent-glow: rgba(245,176,66,0.15);
+    --accent2: #60a5fa;
+    --success: #34d399;
+    --danger: #fb7185;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow: 0 10px 35px rgba(0,0,0,0.35);
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Code", "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── LANGUAGE SELECTOR (top-right) ── */
+  .lang-select {
+    position: fixed; top: 18px; right: 24px; z-index: 200;
+    display: flex; gap: 3px;
+    background: rgba(17,24,39,0.85);
+    backdrop-filter: blur(10px);
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .lang-btn {
+    background: transparent; border: none;
+    color: var(--text-muted); padding: 6px 12px;
+    border-radius: 6px; cursor: pointer;
+    font-size: 0.82rem; font-weight: 600;
+    font-family: var(--font-sans);
+    transition: all 0.2s;
+  }
+  .lang-btn:hover { color: #fff; background: var(--surface2); }
+  .lang-btn.active { color: var(--accent); background: var(--accent-glow); }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,15,26,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; color: #fff; }
+  .logo-mark {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, #f5b042 0%, #d97706 100%);
+    display: grid; place-items: center; color: #0a0f1a;
+    font-size: 1.1rem; font-weight: 800;
+  }
+  nav { display: flex; align-items: center; gap: 4px; }
+  nav a { margin-left: 6px; color: var(--text-muted); font-size: 0.92rem; transition: color 0.2s; }
+  nav a:hover { color: #fff; }
+  .nav-cta {
+    background: var(--accent2); padding: 8px 16px; border-radius: 8px;
+    color: #fff !important; font-weight: 600; font-size: 0.88rem;
+  }
+  .nav-cta:hover { background: #3b82f6; }
+
+  /* ── HERO ── */
+  .hero { padding: 80px 0 50px; text-align: center; }
+  .badge-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent-glow); border: 1px solid rgba(245,176,66,0.3);
+    color: var(--accent); padding: 6px 14px; border-radius: 100px;
+    font-size: 0.82rem; font-weight: 600;
+  }
+  .badge svg { width: 13px; height: 13px; }
+  .hero h1 {
+    font-size: 3.2rem; line-height: 1.12; max-width: 880px;
+    margin: 0 auto 16px; font-weight: 800; letter-spacing: -0.025em;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 30px; }
+  .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 13px 24px; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+    cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--accent2); color: #fff; box-shadow: var(--shadow); }
+  .btn-primary:hover { background: #3b82f6; transform: translateY(-2px); }
+  .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-secondary:hover { border-color: var(--accent2); color: #fff; }
+  .trust-row { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; color: var(--text-muted); font-size: 0.88rem; }
+  .trust-item { display: flex; align-items: center; gap: 7px; }
+  .trust-item svg { width: 16px; height: 16px; color: var(--success); flex-shrink: 0; }
+
+  /* ── GENERAL SECTION STYLES ── */
+  section { padding: 64px 0; }
+  .section-label {
+    display: inline-block; color: var(--accent);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 6px; }
+  .section-sub { color: var(--text-muted); margin-bottom: 28px; max-width: 560px; }
+
+  /* ── STEPS ── */
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 8px; }
+  .step-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .step-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, #f5b042 0%, #d97706 100%);
+    color: #0a0f1a; font-weight: 800; font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  .step-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+  .step-card p { color: var(--text-muted); font-size: 0.92rem; }
+
+  /* ── TWO-COLUMN WITH EXAMPLE ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .card-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 28px; overflow: hidden;
+  }
+  .example-label {
+    display: inline-block; padding: 4px 12px; border-radius: 8px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 12px;
+  }
+  .example-label.before { background: rgba(251,113,133,0.12); color: var(--danger); }
+  .example-label.after { background: rgba(52,211,153,0.12); color: var(--success); border: 1px solid rgba(52,211,153,0.3); }
+  .example-box {
+    background: #060a12; border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px;
+    font-family: var(--font-mono); white-space: pre-wrap;
+    color: var(--text); font-size: 0.78rem; line-height: 1.5;
+    overflow: hidden; max-height: 210px; margin-bottom: 14px;
+  }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .stat { display: flex; flex-direction: column; }
+  .stat-val { font-size: 1.7rem; font-weight: 800; color: #fff; }
+  .stat-lbl { color: var(--text-muted); font-size: 0.82rem; }
+
+  /* ── PACKAGES ── */
+  .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 8px; }
+  .pkg {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 24px;
+    display: flex; flex-direction: column; position: relative;
+  }
+  .pkg.featured { border: 1px solid var(--accent2); }
+  .pkg-popular-badge {
+    position: absolute; top: 12px; right: 18px;
+    background: var(--accent); color: #0a0f1a;
+    font-size: 0.68rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 100px; letter-spacing: 0.03em;
+  }
+  .pkg-tag { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 4px; }
+  .pkg h3 { font-size: 1.05rem; margin-bottom: 2px; }
+  .pkg-price { font-size: 1.65rem; font-weight: 800; color: #fff; margin: 6px 0 12px; line-height: 1; }
+  .pkg ul { margin: 12px 0 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-muted); }
+  .pkg li { margin-bottom: 6px; }
+  .pkg-cta { margin-top: auto; padding-top: 14px; }
+
+  /* ── INSTRUCTIONS ── */
+  .instr-frame {
+    background: linear-gradient(180deg, rgba(96,165,250,0.08), rgba(96,165,250,0.03));
+    border: 1px solid rgba(96,165,250,0.4);
+    border-radius: var(--radius-lg); padding: 36px;
+    box-shadow: 0 0 0 1px rgba(96,165,250,0.05);
+  }
+  .instr-steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+  .instr-step {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .instr-step:hover { border-color: rgba(96,165,250,0.4); transform: translateY(-2px); }
+  .instr-step .step-num { margin-bottom: 10px; }
+  .instr-step h3 { font-size: 1rem; margin-bottom: 8px; }
+  .instr-step p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
+  .code-sample {
+    background: #060a12; border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px;
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: #cbd5e1; margin-top: 10px; line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .full-width { grid-column: 1 / -1; }
+  .privacy-box {
+    background: rgba(52,211,153,0.06);
+    border: 1px solid rgba(52,211,153,0.3);
+    border-radius: 10px; padding: 14px 18px;
+    margin-top: 20px; color: var(--success); font-size: 0.88rem;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .privacy-box svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--success); }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .contact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 24px; text-align: center;
+  }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 12px; margin: 0 auto 12px;
+    background: var(--accent-glow); display: grid; place-items: center;
+    color: var(--accent2);
+  }
+  .contact-icon svg { width: 22px; height: 22px; }
+  .contact-email { color: var(--accent2); font-weight: 700; font-size: 0.95rem; word-break: break-all; }
+  .contact-sub { color: var(--text-muted); font-size: 0.82rem; margin-top: 4px; }
+
+  /* ── FOOTER ── */
+  footer { text-align: center; padding: 28px 0 36px; color: var(--text-muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 36px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .hero h1 { font-size: 2.2rem; }
+    .steps-grid, .two-col, .pkg-grid, .instr-steps-grid, .contact-grid { grid-template-columns: 1fr; }
+    .nav-cta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE SELECTOR -->
+<div class="lang-select" id="langSelect">
+  <button class="lang-btn active" data-lang="sr">SR</button>
+  <button class="lang-btn" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="de">DE</button>
+  <button class="lang-btn" data-lang="it">IT</button>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">📄</span>
+      <span id="logo_name">Document Processing</span>
+    </a>
+    <nav>
+      <a href="#how" id="nav_how">How it works</a>
+      <a href="#example" id="nav_example">Example</a>
+      <a href="#packages" id="nav_packages">Packages</a>
+      <a href="#instructions" id="nav_instructions">Instructions</a>
+      <a href="#contact" class="nav-cta" id="nav_contact">Contact →</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container">
+      <div class="badge-row">
+        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span id="badge_fast">24h turnaround</span></span>
+        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span id="badge_conf">Confidential</span></span>
+        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 14 9 9 12 14 20 4"/></svg><span id="badge_human">Human-reviewed</span></span>
+      </div>
+      <h1><span id="h1_line1">Your PDF, Word or text</span><br><span id="h1_line2">can be clear in 24 hours</span></h1>
+      <p id="hero_desc">I review, summarise, structure and format your documents — in Word, PDF or plain text. No technical knowledge needed on your side. First document is free.</p>
+      <div class="cta-group">
+        <a href="#instructions" class="btn btn-primary" id="cta_send_file">How to send a file →</a>
+        <a href="#packages" class="btn btn-secondary" id="cta_packages">View packages</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <span class="section-label" id="section_process">Process</span>
+      <h2 id="h2_process">How it works — 3 steps</h2>
+      <p class="section-sub" id="process_sub">From sending a file to receiving a clear, readable output. Simple, no complications.</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-num">1</span>
+          <h3 id="step1_title">Send the file</h3>
+          <p id="step1_body">PDF, Word (.docx), image (.jpg/.png), Excel (.xlsx/.csv) or long text — via email.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">2</span>
+          <h3 id="step2_title">I process the document</h3>
+          <p id="step2_body">Summary, key points, action items, headings and subheadings, clear layout — reviewed manually before sending.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">3</span>
+          <h3 id="step3_title">You receive the output</h3>
+          <p id="step3_body">Word, PDF or text, in the agreed timeframe. First document is free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAMPLE -->
+  <section id="example">
+    <div class="container">
+      <span class="section-label" id="section_example">Real example</span>
+      <h2 id="h2_example">From a full legal paper to a clear, usable overview</h2>
+      <p class="section-sub" id="example_sub">This example was created from an actual legal science paper — showing how a dense 45-page document becomes a clear, structured summary.</p>
+      <div class="two-col">
+        <div class="card-box">
+          <span class="example-label before" id="label_before">BEFORE · Original document</span>
+          <div class="example-box" id="example_before_box"></div>
+          <div class="stat-grid">
+            <div class="stat"><span class="stat-val" id="stat_pages">45</span><br><span class="stat-lbl" id="stat_pages_lbl">pages</span></div>
+            <div class="stat"><span class="stat-val">~30min</span><br><span class="stat-lbl" id="stat_read_lbl">reading time</span></div>
+            <div class="stat"><span class="stat-val">—</span><br><span class="stat-lbl" id="stat_struct_lbl">no clear structure</span></div>
+          </div>
+        </div>
+        <div class="card-box">
+          <span class="example-label after" id="label_after">AFTER · Processed</span>
+          <div class="example-box" id="example_after_box" style="color: var(--success);"></div>
+          <div class="stat-grid">
+            <div class="stat"><span class="stat-val" id="stat_keys">5</span><br><span class="stat-lbl" id="stat_keys_lbl">key points</span></div>
+            <div class="stat"><span class="stat-val">~1min</span><br><span class="stat-lbl" id="stat_review_lbl">overview</span></div>
+            <div class="stat"><span class="stat-val" id="stat_clear">structured</span><br><span class="stat-lbl" id="stat_clear_lbl">headings + subheadings</span></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 14px; color: var(--text-muted); font-size: 0.88rem; text-align: center;" id="example_footer">Real example: full legal paper processed into a clear, structured summary — ready to read or use.</p>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages">
+    <div class="container">
+      <span class="section-label" id="section_packages">Packages</span>
+      <h2 id="h2_packages">Packages and pricing</h2>
+      <p class="section-sub" id="packages_sub">From a simple summary to a complete processed document. First document is free — try it and see the result.</p>
+      <div class="pkg-grid">
+        <div class="pkg">
+          <div class="pkg-tag" id="pkg_basic_tag">Basic processing</div>
+          <h3>🟢 BASIC</h3>
+          <div class="pkg-price" id="pkg_basic_price">do 5€</div>
+          <ul id="pkg_basic_list"></ul>
+          <div class="pkg-cta"><a href="#contact" class="btn btn-secondary" id="pkg_basic_cta">Send file →</a></div>
+        </div>
+        <div class="pkg featured">
+          <span class="pkg-popular-badge" id="pkg_popular">Most popular</span>
+          <div class="pkg-tag" id="pkg_std_tag">Standard processing</div>
+          <h3>🟡 STANDARD</h3>
+          <div class="pkg-price" id="pkg_std_price">do 10€</div>
+          <ul id="pkg_std_list"></ul>
+          <div class="pkg-cta"><a href="#contact" class="btn btn-primary" id="pkg_std_cta">Send file →</a></div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-tag" id="pkg_prem_tag">Full processing</div>
+          <h3>🔴 PREMIUM</h3>
+          <div class="pkg-price" id="pkg_prem_price">po dogovoru</div>
+          <ul id="pkg_prem_list"></ul>
+          <div class="pkg-cta"><a href="#contact" class="btn btn-secondary" id="pkg_prem_cta">Send file →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTRUCTIONS — TOŠI DEO ŠTO TREBA DA BUDE LAKO VIDLJIV -->
+  <section id="instructions">
+    <div class="container">
+      <div class="instr-frame">
+        <span class="section-label" id="section_instructions">For clients</span>
+        <h2 id="h2_instructions">How to send a file for processing — 4 steps</h2>
+        <p class="section-sub" style="margin-bottom: 16px;" id="instructions_sub">Four simple steps mean you receive a clear, processed document in no time.</p>
+        <div class="instr-steps-grid">
+          <div class="instr-step">
+            <span class="step-num">1</span>
+            <h3 id="instr1_title">Prepare the file</h3>
+            <p id="instr1_body">PDF, Word (.docx), image (.jpg/.png), Excel (.xlsx/.csv) or long text.</p>
+          </div>
+          <div class="instr-step">
+            <span class="step-num">2</span>
+            <h3 id="instr2_title">Write the email</h3>
+            <span>obrada.dokumenata1@gmail.com</span> with subject:<br><span class="code-sample" style="display:inline-block; background:transparent; border:none; padding:4px 0; font-size:0.82rem; color:inherit;">Document processing — [short description]</span></span></p>
+          </div>
+          <div class="instr-step">
+            <span class="step-num">3</span>
+            <h3 id="instr3_title">Attach file + describe</h3>
+            <p id="instr3_body">Indicate: what the document is, what you want me to extract / summarise / structure, preferred output format (Word / PDF / text).</p>
+          </div>
+          <div class="instr-step">
+            <span class="step-num">4</span>
+            <h3 id="instr4_title">Confirmation + deadline</h3>
+            <p id="instr4_body">I confirm receipt, agree on deadline, and ask for any needed clarifications.</p>
+          </div>
+          <div class="instr-step full-width" style="background: var(--accent-glow); border-color: rgba(245,176,66,0.3);">
+            <span class="step-num" style="background: var(--accent); color: #0a0f1a;">✓</span>
+            <h3 id="instr_free_title" style="color: var(--accent);">Free test</h3>
+            <p id="instr_free_body">Send one PDF (up to 20 pages) and I'll return a processed version — free, so you can see the result before you decide.</p>
+            <div class="code-sample" id="email_sample"></div>
+          </div>
+        </div>
+        <div class="privacy-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span id="privacy_text"><strong>Confidentiality:</strong> Files are processed exclusively for you, not shared with third parties, and deleted after completion (by agreement). For sensitive documents, we agree on encryption or a private channel.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <span class="section-label" id="section_contact">Contact</span>
+      <h2 id="h2_contact">Send a file — first test is free</h2>
+      <p class="section-sub" id="contact_sub">Deadlines: BASIC 24h · STANDARD 2–3 days · PREMIUM 3–5 days. Reply within 2 hours during working hours.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          </div>
+          <div class="contact-email">obrada.dokumenata1@gmail.com</div>
+          <div class="contact-sub" id="contact_email_sub">Fastest reply</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 13a4 4 0 1 1-4-4V5h-2l5-5 5 5h-2v4z"/><circle cx="17" cy="17" r="2"/></svg>
+          </div>
+          <div class="contact-email" style="font-size:0.85rem;">Viber / Telegram<br>+381 60 000 0000</div>
+          <div class="contact-sub" id="contact_urgent_sub">For urgent processing</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="contact-email" style="font-size:0.85rem;">Radno vreme<br>pon–pet · 07–20h</div>
+          <div class="contact-sub" id="contact_hours_sub">Working hours</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p id="footer">© 2026 Document Processing · Review, summary, structure · Free first document · Confidential</p>
+  </div>
+</footer>
+
+<script>
+// ─── TRANSLATIONS ────────────────────────────────────────────────────────────
+const T = {
+  sr: {
+    logo_name: "Obrada Dokumenata",
+    nav_how: "Kako radi",
+    nav_example: "Primjer",
+    nav_packages: "Paketi",
+    nav_instructions: "Upute",
+    nav_contact: "Kontakt →",
+    badge_fast: "Rok 24h",
+    badge_conf: "Konfidencialно",
+    badge_human: "Ručno pregledano",
+    h1_line1: "Vaš PDF, Word ili tekst",
+    h1_line2: "može biti pregledniji u 24 sata",
+    hero_desc: "Pregledam, sažmem, strukturiram i formatiram vaše dokumente — u Wordu, PDF-u ili običnom tekstu. Nije potrebno tehničko znanje sa vaše strane. Prvi dokument je besplatan.",
+    cta_send_file: "Kako poslati fajl →",
+    cta_packages: "Pogledaj pakete",
+    section_process: "Proces",
+    h2_process: "Kako funkcioniše — 3 koraka",
+    process_sub: "Od slanja fajla do preglednog izlaza. Jednostavno, bez komplikacija.",
+    step1_title: "Pošaljite fajl",
+    step1_body: "PDF, Word (.docx), slika (.jpg/.png), Excel (.xlsx/.csv) ili dug tekst — preko emaila.",
+    step2_title: "Ja obradim dokument",
+    step2_body: "Sažetak, ključne tačke, akcioni koraci, naslovi i podnaslovi, pregledan izgled — ručno pregledano pre slanja.",
+    step3_title: "Dobijate izlaz",
+    step3_body: "Word, PDF ili tekst, u dogovorenom roku. Prvi dokument je besplatan.",
+    section_example: "Stvarni primjer",
+    h2_example: "Od punog pravnog rada do pregledne, korisne prikaza",
+    example_sub: "Ovaj primjer je napravljen od stvarnog naučnog pravnog rada — pokazuje kako gust 45-stranični dokument postaje pregledna, strukturirana sažetak.",
+    label_before: "PRE · Originalni dokument",
+    label_after: "POSLE · Obrađeno",
+    stat_pages: "45",
+    stat_pages_lbl: "strana",
+    stat_read_lbl: "vrijeme čitanja",
+    stat_struct_lbl: "nema pregledne strukture",
+    stat_keys: "5",
+    stat_keys_lbl: "ključnih tačaka",
+    stat_review_lbl: "pregled",
+    stat_clear: "strukturirano",
+    stat_clear_lbl: "naslovi + podnaslovi",
+    example_footer: "Stvarni primjer: pun pravni naučni rad obrađen u preglednu, strukturiranu sažetak — spremno za čitanje ili korištenje.",
+    example_before: [
+      "┌────────────────────────────────────────┐",
+      "│  NAUČNI PRAVNI RAD                   │",
+      "│  \"Nedozvoljena proizvodnja, držanje   │",
+      "│   i stavljanje u promet opojnih droga │",
+      "│   kao oblik ispoljavanja organizovane │",
+      "│   kriminalne delatnosti\"              │",
+      "│                                        │",
+      "│  Autor: Mirjana Đukić                  │",
+      "│  Pravni fakultet u Prištini /         │",
+      "│  Kosovskoj Mitrovici                  │",
+      "│  Zbornik br. 85, 2019                │",
+      "│                                        │",
+      "│  45 strana, 10.000+ riječi,          │",
+      "│  gust sadržaj, bez pregledne          │",
+      "│  strukture za brzo čitanje.          │",
+      "│                                        │",
+      "│  Teško: gdje je glavni zaključak?    │",
+      "│  Koji su ključni podaci iz prakse?   │",
+      "│  Šta kaže normativni okvir?           │",
+      "└────────────────────────────────────────┘"
+    ],
+    example_after: [
+      "┌────────────────────────────────────────┐",
+      "│  NAUČNI PRAVNI RAD — SAŽETAK          │",
+      "│  \"Nedozvoljena proizvodnja, držanje   │",
+      "│   i stavljanje u promet opojnih droga\"│",
+      "│                                        │",
+      "│  Glavni zaključak:                    │",
+      "│  Organizovana krim. delatnost u       │",
+      "│  obliku proizvodnje i prometa         │",
+      "│  opojnih droga zahteva koordinaciju   │",
+      "│  nadležnih organa, suzbijanje je      │",
+      "│  u pitanju...                         │",
+      "│                                        │",
+      "│  📌 5 KLJUČNIH TAČAKA:                │",
+      "│  1. Normativni okvir (propisi...      │",
+      "│  2. Statistika pred TOK/SST (2012–17)│",
+      "│  3. Rolа Specijalnog suda...          │",
+      "│  4. Izazovi u praksi (međunarodna    │",
+      "│     suradnja, dokazi...)              │",
+      "│  5. Preporuke (jačanje kapaciteta…    │",
+      "└────────────────────────────────────────┘"
+    ],
+    section_packages: "Paketi",
+    h2_packages: "Paketi i cene",
+    packages_sub: "Od jednostavnog sažetka do kompletnog obradjenog dokumenta. Prvi dokument je besplatan — probajte i vidite rezultat.",
+    pkg_basic_tag: "Osnovna obrada",
+    pkg_basic_price: "do 5€",
+    pkg_basic_list: [
+      "Do 20 strana",
+      "Kratak sažetak",
+      "Rok: 24 sata",
+      "Word / PDF / tekst"
+    ],
+    pkg_basic_cta: "Pošalji fajl →",
+    pkg_popular: "Najpopularniji",
+    pkg_std_tag: "Standardna obrada",
+    pkg_std_price: "do 10€",
+    pkg_std_list: [
+      "Do 30 strana",
+      "Sažetak + struktura",
+      "Izdvojene akcije / ključne tačke",
+      "Pregledan izgled",
+      "Rok: 2–3 dana"
+    ],
+    pkg_std_cta: "Pošalji fajl →",
+    pkg_prem_tag: "Puna obrada",
+    pkg_prem_price: "po dogovoru",
+    pkg_prem_list: [
+      "Složeniji dokumenti",
+      "Više fajlova / tabele",
+      "Formatiranje + provera",
+      "Ručni ljudski pregled",
+      "Rok: 3–5 dana"
+    ],
+    pkg_prem_cta: "Pošalji fajl →",
+    section_instructions: "Za klijente",
+    h2_instructions: "Kako poslati fajl za obradu — 4 koraka",
+    instructions_sub: "Četiri jednostavna koraka znače da dobijate pregledan, obradjen dokument na vreme.",
+    instr1_title: "Pripremite fajl",
+    instr1_body: "PDF, Word (.docx), slika (.jpg/.png), Excel (.xlsx/.csv) ili dug tekst.",
+    instr2_title: "Napišite email",
+    instr2_body: "Na <span style=\"color: var(--accent2); font-weight: 700;\">obrada.dokumenata1@gmail.com</span> sa naslovom:<br><span class=\"code-sample\" style=\"display:inline-block; background:transparent; border:none; padding:4px 0; font-size:0.82rem; color:inherit;\">Obrada dokumenta — [kratak opis]</span>",
+    instr3_title: "Priložite fajl + opišite",
+    instr3_body: "Navedite: šta je dokument, šta želite da izdvojim / sažmem / strukturiram, preferirani format izlaza (Word / PDF / tekst).",
+    instr4_title: "Potvrda + rok",
+    instr4_body: "Potvrdiću primanje, dogovoriti rok i, ako treba, zatražiti dodatne informacije.",
+    instr_free_title: "Besplatan test",
+    instr_free_body: "Pošaljite jedan PDF (do 20 strana) i ja vam vraćam obradjenu verziju — besplatno, da vidite rezultat pre odluke.",
+    email_sample: "Naslov: Obrada dokumenta — [naziv dokumenta]\nTijelo: Pozdrav,\nprilagojim fajl [ime.pdf]...\nŠta želim: sažetak + izdvojene bitne stvari + pregledni izgled.\nFormat: PDF / Word / tekst.",
+    privacy_text: "<strong>Konfidencijalnost:</strong> Fajlovi se obrađuju isključivo za vas, ne dele se trećim licima, i brišu se nakon završetka (po dogovoru). Za osjetljive dokumente, dogovaramo šifrovanje ili privatan kanal.",
+    section_contact: "Kontakt",
+    h2_contact: "Pošaljite fajl — prvi test je besplatan",
+    contact_sub: "Rokovi: BASIC 24h · STANDARD 2–3 dana · PREMIUM 3–5 dana. Odgovor u roku od 2h u radno vreme.",
+    contact_email_sub: "Najbrži odgovor",
+    contact_urgent_sub: "Za hitne obrade",
+    contact_hours_sub: "Radno vreme",
+    footer: "© 2026 Obrada Dokumenata · Pregled, sažetak, struktura · Besplatan prvi dokument · Konfidencijalno"
+  },
+  en: {
+    logo_name: "Document Processing",
+    nav_how: "How it works",
+    nav_example: "Example",
+    nav_packages: "Packages",
+    nav_instructions: "Instructions",
+    nav_contact: "Contact →",
+    badge_fast: "24h turnaround",
+    badge_conf: "Confidential",
+    badge_human: "Human-reviewed",
+    h1_line1: "Your PDF, Word or text",
+    h1_line2: "can be clear in 24 hours",
+    hero_desc: "I review, summarise, structure and format your documents — in Word, PDF or plain text. No technical knowledge needed on your side. First document is free.",
+    cta_send_file: "How to send a file →",
+    cta_packages: "View packages",
+    section_process: "Process",
+    h2_process: "How it works — 3 steps",
+    process_sub: "From sending a file to receiving a clear, readable output. Simple, no complications.",
+    step1_title: "Send the file",
+    step1_body: "PDF, Word (.docx), image (.jpg/.png), Excel (.xlsx/.csv) or long text — via email.",
+    step2_title: "I process the document",
+    step2_body: "Summary, key points, action items, headings and subheadings, clear layout — reviewed manually before sending.",
+    step3_title: "You receive the output",
+    step3_body: "Word, PDF or text, in the agreed timeframe. First document is free.",
+    section_example: "Real example",
+    h2_example: "From a full legal paper to a clear, usable overview",
+    example_sub: "This example was created from an actual legal science paper — showing how a dense 45-page document becomes a clear, structured summary.",
+    label_before: "BEFORE · Original document",
+    label_after: "AFTER · Processed",
+    stat_pages: "45",
+    stat_pages_lbl: "pages",
+    stat_read_lbl: "reading time",
+    stat_struct_lbl: "no clear structure",
+    stat_keys: "5",
+    stat_keys_lbl: "key points",
+    stat_review_lbl: "overview",
+    stat_clear: "structured",
+    stat_clear_lbl: "headings + subheadings",
+    example_footer: "Real example: full legal paper processed into a clear, structured summary — ready to read or use.",
+    example_before: [
+      "┌────────────────────────────────────────┐",
+      "│  SCIENTIFIC LEGAL PAPER               │",
+      "│  \"Illegal production, possession       │",
+      "│   and trafficking of narcotic drugs    │",
+      "│   as a form of organised criminal      │",
+      "│   activity\"                           │",
+      "│                                        │",
+      "│  Author: Mirjana Đukić                  │",
+      "│  Faculty of Law in Priština /          │",
+      "│  Kosovska Mitrovica                   │",
+      "│  Collection no. 85, 2019             │",
+      "│                                        │",
+      "│  45 pages, 10,000+ words,            │",
+      "│  dense content, no clear structure    │",
+      "│  for quick reading.                   │",
+      "│                                        │",
+      "│  Hard to find: where is the main      │",
+      "│  conclusion? What are the key figures  │",
+      "│  from practice? What does the          │",
+      "│  normative framework say?             │",
+      "└────────────────────────────────────────┘"
+    ],
+    example_after: [
+      "┌────────────────────────────────────────┐",
+      "│  SCIENTIFIC LEGAL PAPER — SUMMARY      │",
+      "│  \"Illegal production, possession       │",
+      "│   and trafficking of narcotic drugs\"  │",
+      "│                                        │",
+      "│  Main conclusion:                     │",
+      "│  Organised criminal activity in the    │",
+      "│  form of drug production and           │",
+      "│  trafficking requires coordination     │",
+      "│  of competent authorities, combating   │",
+      "│  it is a matter of...                 │",
+      "│                                        │",
+      "│  📌 5 KEY POINTS:                     │",
+      "│  1. Normative framework (laws...)     │",
+      "│  2. Statistics before CCBE/Special     │",
+      "│     Court (2012–2017)                 │",
+      "│  3. Role of the Special Court...      │",
+      "│  4. Practical challenges (international │",
+      "│     cooperation, evidence...)         │",
+      "│  5. Recommendations (strengthening     │",
+      "│     capacities...)                    │",
+      "└────────────────────────────────────────┘"
+    ],
+    section_packages: "Packages",
+    h2_packages: "Packages and pricing",
+    packages_sub: "From a simple summary to a complete processed document. First document is free — try it and see the result.",
+    pkg_basic_tag: "Basic processing",
+    pkg_basic_price: "to 5€",
+    pkg_basic_list: [
+      "Up to 20 pages",
+      "Short summary",
+      "Deadline: 24 hours",
+      "Word / PDF / text"
+    ],
+    pkg_basic_cta: "Send file →",
+    pkg_popular: "Most popular",
+    pkg_std_tag: "Standard processing",
+    pkg_std_price: "to 10€",
+    pkg_std_list: [
+      "Up to 30 pages",
+      "Summary + structure",
+      "Extracted actions / key points",
+      "Clear layout",
+      "Deadline: 2–3 days"
+    ],
+    pkg_std_cta: "Send file →",
+    pkg_prem_tag: "Full processing",
+    pkg_prem_price: "upon agreement",
+    pkg_prem_list: [
+      "Complex documents",
+      "Multiple files / tables",
+      "Formatting + verification",
+      "Manual human review",
+      "Deadline: 3–5 days"
+    ],
+    pkg_prem_cta: "Send file →",
+    section_instructions: "For clients",
+    h2_instructions: "How to send a file for processing — 4 steps",
+    instructions_sub: "Four simple steps mean you receive a clear, processed document in no time.",
+    instr1_title: "Prepare the file",
+    instr1_body: "PDF, Word (.docx), image (.jpg/.png), Excel (.xlsx/.csv) or long text.",
+    instr2_title: "Write the email",
+    instr2_body: "To <span style=\"color: var(--accent2); font-weight: 700;\">obrada.dokumenata1@gmail.com</span> with subject:<br><span class=\"code-sample\" style=\"display:inline-block; background:transparent; border:none; padding:4px 0; font-size:0.82rem; color:inherit;\">Document processing — [short description]</span>",
+    instr3_title: "Attach file + describe",
+    instr3_body: "Indicate: what the document is, what you want me to extract / summarise / structure, preferred output format (Word / PDF / text).",
+    instr4_title: "Confirmation + deadline",
+    instr4_body: "I confirm receipt, agree on deadline, and ask for any needed clarifications.",
+    instr_free_title: "Free test",
+    instr_free_body: "Send one PDF (up to 20 pages) and I'll return a processed version — free, so you can see the result before you decide.",
+    email_sample: "Subject: Document processing — [document name]\nBody: Hello,\nI am sending file [filename.pdf]...\nWhat I want: summary + key points extracted + clear layout.\nFormat: PDF / Word / text.",
+    privacy_text: "<strong>Confidentiality:</strong> Files are processed exclusively for you, not shared with third parties, and deleted after completion (by agreement). For sensitive documents, we agree on encryption or a private channel.",
+    section_contact: "Contact",
+    h2_contact: "Send a file — first test is free",
+    contact_sub: "Deadlines: BASIC 24h · STANDARD 2–3 days · PREMIUM 3–5 days. Reply within 2 hours during working hours.",
+    contact_email_sub: "Fastest reply",
+    contact_urgent_sub: "For urgent processing",
+    contact_hours_sub: "Working hours",
+    footer: "© 2026 Document Processing · Review, summary, structure · Free first document · Confidential"
+  },
+  de: {
+    logo_name: "Dokumentenverarbeitung",
+    nav_how: "So funktioniert es",
+    nav_example: "Beispiel",
+    nav_packages: "Pakete",
+    nav_instructions: "Anleitung",
+    nav_contact: "Kontakt →",
+    badge_fast: "24h Bearbeitung",
+    badge_conf: "Vertraulich",
+    badge_human: "Manuell geprüft",
+    h1_line1: "Ihr PDF, Word oder Text",
+    h1_line2: "kann in 24 Stunden klar sein",
+    hero_desc: "Ich prüfe, fasse zusammen, strukturiere und formatiere Ihre Dokumente — in Word, PDF oder reinem Text. Kein technisches Vorwissen auf Ihrer Seite nötig. Das erste Dokument ist kostenlos.",
+    cta_send_file: "Datei senden →",
+    cta_packages: "Pakete ansehen",
+    section_process: "Ablauf",
+    h2_process: "So funktioniert es — 3 Schritte",
+    process_sub: "Vom Absenden der Datei bis zum klaren, lesbaren Ergebnis. Einfach, ohne Komplikationen.",
+    step1_title: "Datei senden",
+    step1_body: "PDF, Word (.docx), Bild (.jpg/.png), Excel (.xlsx/.csv) oder Langer Text — per E-Mail.",
+    step2_title: "Ich verarbeite das Dokument",
+    step2_body: "Zusammenfassung, wichtige Punkte, Handlungsschritte, Überschriften und Untertitel, übersichtliches Layout — manuell geprüft vor dem Absenden.",
+    step3_title: "Sie erhalten das Ergebnis",
+    step3_body: "Word, PDF oder Text, innerhalb des vereinbarten Zeitraums. Das erste Dokument ist kostenlos.",
+    section_example: "Echtes Beispiel",
+    h2_example: "Von einem vollständigen juristischen Aufsatz zu einer klaren, nutzbaren Übersicht",
+    example_sub: "Dieses Beispiel wurde aus einem echten juristischen Wissenschaftspapier erstellt — es zeigt, wie ein dichtes 45-seitiges Dokument zu einer klaren, strukturierten Zusammenfassung wird.",
+    label_before: "VOR · Originaldokument",
+    label_after: "NACH · Verarbeitet",
+    stat_pages: "45",
+    stat_pages_lbl: "Seiten",
+    stat_read_lbl: "Lesedauer",
+    stat_struct_lbl: "keine klare Struktur",
+    stat_keys: "5",
+    stat_keys_lbl: "Schlüsselpunkte",
+    stat_review_lbl: "Überblick",
+    stat_clear: "strukturiert",
+    stat_clear_lbl: "Überschriften + Untertitel",
+    example_footer: "Echtes Beispiel: vollständiger juristischer Wissenschaftsartikel verarbeitet zu einer klaren, strukturierten Zusammenfassung — bereit zum Lesen oder Nutzen.",
+    example_before: [
+      "┌────────────────────────────────────────┐",
+      "│  WISSENSCHAFTLICHER JURISTISCHER       │",
+      "│  AUFSATZ                              │",
+      "│  \"Illegale Herstellung, Besitz und    │",
+      "│   Handel mit Betäubungsmitteln als     │",
+      "│   Form organisierter Kriminalität\"    │",
+      "│                                        │",
+      "│  Autor: Mirjana Đukić                  │",
+      "│  Rechtswissenschaftliche Fakultät in   │",
+      "│  Priština / Kosovska Mitrovica       │",
+      "│  Sammelband Nr. 85, 2019             │",
+      "│                                        │",
+      "│  45 Seiten, 10.000+ Wörter,          │",
+      "│  dichter Inhalt, keine klare         │",
+      "│  Struktur für schnelles Lesen.       │",
+      "│                                        │",
+      "│  Schwierig zu finden: wo ist die      │",
+      "│  Hauptkonklusion? Welche Schlüssel-   │",
+      "│  zahlen gibt es aus der Praxis? Was   │",
+      "│  sagt der normative Rahmen?           │",
+      "└────────────────────────────────────────┘"
+    ],
+    example_after: [
+      "┌────────────────────────────────────────┐",
+      "│  WISSENSCHAFTLICHER JURISTISCHER       │",
+      "│  AUFSATZ — ZUSAMMENFASSUNG             │",
+      "│  \"Illegale Herstellung, Besitz und    │",
+      "│   Handel mit Betäubungsmitteln\"       │",
+      "│                                        │",
+      "│  Hauptkonklusion:                     │",
+      "│  Organisierte Kriminalität in Form     │",
+      "│  von Drogenherstellung und -handel    │",
+      "│  erfordert Koordination der zuständigen │",
+      "│  Behörden, die Bekämpfung ist eine    │",
+      "│  Angelegenheit der...                 │",
+      "│                                        │",
+      "│  📌 5 SCHLÜSSELPUNKTE:                │",
+      "│  1. Normativer Rahmen (Gesetze...)    │",
+      "│  2. Statistiken vor CCBE/Spezial-     │",
+      "│     Gericht (2012–2017)               │",
+      "│  3. Rolle des Spezialgerichts...      │",
+      "│  4. Praktische Herausforderungen      │",
+      "│     (internationale Zusammenarbeit,   │",
+      "│     Beweise...)                        │",
+      "│  5. Empfehlungen (Stärkung der        │",
+      "│     Kapazitäten...)                   │",
+      "└────────────────────────────────────────┘"
+    ],
+    section_packages: "Pakete",
+    h2_packages: "Pakete und Preise",
+    packages_sub: "Von einer einfachen Zusammenfassung bis zu einem vollständig bearbeiteten Dokument. Das erste Dokument ist kostenlos — probieren Sie es und sehen Sie das Ergebnis.",
+    pkg_basic_tag: "Basis-Verarbeitung",
+    pkg_basic_price: "bis 5€",
+    pkg_basic_list: [
+      "Bis 20 Seiten",
+      "Kurze Zusammenfassung",
+      "Frist: 24 Stunden",
+      "Word / PDF / Text"
+    ],
+    pkg_basic_cta: "Datei senden →",
+    pkg_popular: "Beliebteste",
+    pkg_std_tag: "Standard-Verarbeitung",
+    pkg_std_price: "bis 10€",
+    pkg_std_list: [
+      "Bis 30 Seiten",
+      "Zusammenfassung + Struktur",
+      "Aktionen / wichtige Punkte extrahiert",
+      "Übersichtliches Layout",
+      "Frist: 2–3 Tage"
+    ],
+    pkg_std_cta: "Datei senden →",
+    pkg_prem_tag: "Vollständige Verarbeitung",
+    pkg_prem_price: "nach Vereinbarung",
+    pkg_prem_list: [
+      "Komplexe Dokumente",
+      "Mehrere Dateien / Tabellen",
+      "Formatierung + Überprüfung",
+      "Manuelle Prüfung durch Menschen",
+      "Frist: 3–5 Tage"
+    ],
+    pkg_prem_cta: "Datei senden →",
+    section_instructions: "Für Kunden",
+    h2_instructions: "Datei für die Verarbeitung senden — 4 Schritte",
+    instructions_sub: "Vier einfache Schritte bedeuten, dass Sie binnen kurzem ein klares, bearbeitetes Dokument erhalten.",
+    instr1_title: "Datei vorbereiten",
+    instr1_body: "PDF, Word (.docx), Bild (.jpg/.png), Excel (.xlsx/.csv) oder Langer Text.",
+    instr2_title: "E-Mail schreiben",
+    instr2_body: "An <span style=\"color: var(--accent2); font-weight: 700;\">obrada.dokumenata1@gmail.com</span> mit Betreff:<br><span class=\"code-sample\" style=\"display:inline-block; background:transparent; border:none; padding:4px 0; font-size:0.82rem; color:inherit;\">Dokumentenverarbeitung — [kurze Beschreibung]</span>",
+    instr3_title: "Datei anhängen + beschreiben",
+    instr3_body: "Geben Sie an: was das Dokument ist, was ich extrahieren / zusammenfassen / strukturieren soll, bevorzugtes Ausgabeformat (Word / PDF / Text).",
+    instr4_title: "Bestätigung + Frist",
+    instr4_body: "Ich bestätige den Empfang, vereinbare die Frist und frage ggf. nach weiteren Informationen.",
+    instr_free_title: "Kostenloser Test",
+    instr_free_body: "Senden Sie ein PDF (bis zu 20 Seiten) und ich sende Ihnen eine bearbeitete Version zurück — kostenlos, damit Sie das Ergebnis vor der Entscheidung sehen können.",
+    email_sample: "Betreff: Dokumentenverarbeitung — [Dokumentenname]\nText: Hallo,\nich sende die Datei [Dateiname.pdf]...\nWas ich will: Zusammenfassung + wichtige Punkte + übersichtliches Layout.\nFormat: PDF / Word / Text.",
+    privacy_text: "<strong>Vertraulichkeit:</strong> Dateien werden ausschließlich für Sie verarbeitet, nicht mit Dritten geteilt und nach Abschluss (auf Vereinbarung) gelöscht. Für sensible Dokumente vereinbaren wir Verschlüsselung oder einen privaten Kanal.",
+    section_contact: "Kontakt",
+    h2_contact: "Datei senden — erste Test ist kostenlos",
+    contact_sub: "Fristen: BASIC 24h · STANDARD 2–3 Tage · PREMIUM 3–5 Tage. Antwort innerhalb 2 Stunden in Arbeitszeiten.",
+    contact_email_sub: "Schnellste Antwort",
+    contact_urgent_sub: "Für dringende Verarbeitung",
+    contact_hours_sub: "Arbeitszeiten",
+    footer: "© 2026 Dokumentenverarbeitung · Prüfung, Zusammenfassung, Struktur · Kostenloses erstes Dokument · Vertraulich"
+  },
+  it: {
+    logo_name: "Elaborazione Documenti",
+    nav_how: "Come funziona",
+    nav_example: "Esempio",
+    nav_packages: "Pacchetti",
+    nav_instructions: "Istruzioni",
+    nav_contact: "Contatti →",
+    badge_fast: "Consegna in 24h",
+    badge_conf: "Confidenziale",
+    badge_human: "Revisionе umana",
+    h1_line1: "Il tuo PDF, Word o testo",
+    h1_line2: "può essere chiaro in 24 ore",
+    hero_desc: "Revisiono, riassumo, strutturo e formatto i tuoi documenti — in Word, PDF o testo semplice. Nessuna conoscenza tecnica necessaria da parte tua. Il primo documento è gratuito.",
+    cta_send_file: "Come inviare un file →",
+    cta_packages: "Vedi i pacchetti",
+    section_process: "Processо",
+    h2_process: "Come funziona — 3 passi",
+    process_sub: "Dall'invio del file alla ricezione di un output chiaro e leggibile. Semplice, senza complicazioni.",
+    step1_title: "Invia il file",
+    step1_body: "PDF, Word (.docx), immagine (.jpg/.png), Excel (.xlsx/.csv) o testo lungo — via email.",
+    step2_title: "Elaboro il documento",
+    step2_body: "Sintesi, punti chiave, azioni, titoli e sottotitoli, impaginazione chiara — revisione manuale prima dell'invio.",
+    step3_title: "Ricevi l'output",
+    step3_body: "Word, PDF o testo, nel tempo concordato. Il primo documento è gratuito.",
+    section_example: "Esempio reale",
+    h2_example: "Da una completa paper giuridica a una panoramica chiara e utilizzabile",
+    example_sub: "Questo esempio è stato creato a partire da una vera paper di scienza giuridica — mostra come un documento denso di 45 pagine diventi una chiara, strutturata sintesi.",
+    label_before: "PRIMA · Documento originale",
+    label_after: "DOPO · Elaborato",
+    stat_pages: "45",
+    stat_pages_lbl: "pagine",
+    stat_read_lbl: "tempo di lettura",
+    stat_struct_lbl: "nessuna struttura chiara",
+    stat_keys: "5",
+    stat_keys_lbl: "punti chiave",
+    stat_review_lbl: "panoramica",
+    stat_clear: "strutturato",
+    stat_clear_lbl: "titoli + sottotitoli",
+    example_footer: "Esempio reale: completa paper giuridica elaborata in una chiara, strutturatа sintesi — pronta per essere letta o utilizzata.",
+    example_before: [
+      "┌────────────────────────────────────────┐",
+      "│  PAPER GIURIDICO SCIENTIFICO          │",
+      "│  \"Produzione illegale, detenzione e   │",
+      "│   traffico di droghe come forma di     │",
+      "│   attività criminale organizzata\"     │",
+      "│                                        │",
+      "│  Autore: Mirjana Đukić                 │",
+      "│  Facoltà di Giurisprudenza di          │",
+      "│  Priština / Kosovska Mitrovica       │",
+      "│  Collana n. 85, 2019                 │",
+      "│                                        │",
+      "│  45 pagine, 10.000+ parole,           │",
+      "│  contenuto denso, nessuna struttura    │",
+      "│  chiara per lettura veloce.           │",
+      "│                                        │",
+      "│  Difficile da trovare: dove è la       │",
+      "│  principale conclusione? Quali sono i  │",
+      "│  dati chiave dalla pratica? Cosa dice │",
+      "│  il quadro normativo?                 │",
+      "└────────────────────────────────────────┘"
+    ],
+    example_after: [
+      "┌────────────────────────────────────────┐",
+      "│  PAPER GIURIDICO SCIENTIFICO —         │",
+      "│  SINTESI                               │",
+      "│  \"Produzione illegale, detenzione e   │",
+      "│   traffico di droghe\"                 │",
+      "│                                        │",
+      "│  Conclusione principale:               │",
+      "│  L'attività criminale organizzata in   │",
+      "│  forma di produzione e traffico di    │",
+      "│  droghe richiede coordinamento delle   │",
+      "│  autorità competenti, il contrasto è   │",
+      "│  una questione di...                  │",
+      "│                                        │",
+      "│  📌 5 PUNTI CHIAVE:                    │",
+      "│  1. Quadro normativo (leggi...)       │",
+      "│  2. Statistiche presso CCBE/Tribunale   │",
+      "│     Speciale (2012–2017)              │",
+      "│  3. Ruolo del Tribunale Speciale...   │",
+      "│  4. Sfide pratiche (cooperazione      │",
+      "│     internazionale, prove...)          │",
+      "│  5. Raccomandazioni (rafforzamento    │",
+      "│     delle capacità...)                │",
+      "└────────────────────────────────────────┘"
+    ],
+    section_packages: "Pacchetti",
+    h2_packages: "Pacchetti e prezzi",
+    packages_sub: "Dalla semplice sintesi al documento completamente elaborato. Il primo documento è gratuito — provare e vedere il risultato.",
+    pkg_basic_tag: "Elaborazione base",
+    pkg_basic_price: "fino a 5€",
+    pkg_basic_list: [
+      "Fino a 20 pagine",
+      "Sintesi breve",
+      "Scadenza: 24 ore",
+      "Word / PDF / testo"
+    ],
+    pkg_basic_cta: "Invia file →",
+    pkg_popular: "Più popolare",
+    pkg_std_tag: "Elaborazione standard",
+    pkg_std_price: "fino a 10€",
+    pkg_std_list: [
+      "Fino a 30 pagine",
+      "Sintesi + struttura",
+      "Azioni / punti chiave estratti",
+      "Impaginazione chiara",
+      "Scadenza: 2–3 giorni"
+    ],
+    pkg_std_cta: "Invia file →",
+    pkg_prem_tag: "Elaborazione completa",
+    pkg_prem_price: "a accordo",
+    pkg_prem_list: [
+      "Documenti complessi",
+      "File multipli / tabelle",
+      "Formattazione + verifica",
+      "Revisione umana manuale",
+      "Scadenza: 3–5 giorni"
+    ],
+    pkg_prem_cta: "Invia file →",
+    section_instructions: "Per clienti",
+    h2_instructions: "Come inviare un file per l'elaborazione — 4 passi",
+    instructions_sub: "Quattro semplici passi significano che riceverai un documento chiaro ed elaborato in pochi minuti.",
+    instr1_title: "Prepara il file",
+    instr1_body: "PDF, Word (.docx), immagine (.jpg/.png), Excel (.xlsx/.csv) o testo lungo.",
+    instr2_title: "Scrivi l'email",
+    instr2_body: "A <span style=\"color: var(--accent2); font-weight: 700;\">obrada.dokumenata1@gmail.com</span> con oggetto:<br><span class=\"code-sample\" style=\"display:inline-block; background:transparent; border:none; padding:4px 0; font-size:0.82rem; color:inherit;\">Elaborazione documento — [breve descrizione]</span>",
+    instr3_title: "Allega file + descrivi",
+    instr3_body: "Indica: cos'è il documento, cosa vuoi che estrapoli / riassuma / strutturi, formato di output preferito (Word / PDF / testo).",
+    instr4_title: "Conferma + scadenza",
+    instr4_body: "Confermo l'arrivo, concordiamo la scadenza e, se necessario, chiedo chiarimenti aggiuntivi.",
+    instr_free_title: "Prova gratuita",
+    instr_free_body: "Invia un PDF (fino a 20 pagine) e ti restituirò una versione elaborata — gratuito, così puoi vedere il risultato prima di decidere.",
+    email_sample: "Oggetto: Elaborazione documento — [nome documento]\nCorpo: Ciao,\nallego file [nomefile.pdf]...\nCosa voglio: sintesi + punti chiave estratti + impaginazione chiara.\nFormato: PDF / Word / testo.",
+    privacy_text: "<strong>Riservatezza:</strong> I file sono elaborati esclusivamente per te, non condivisi con terzi e cancellati dopo il completamento (secondo accordi). Per documenti sensibili, accordiamo cifratura o un canale privato.",
+    section_contact: "Contatti",
+    h2_contact: "Invia un file — la prima prova è gratuita",
+    contact_sub: "Scadenze: BASE 24h · STANDARD 2–3 giorni · PREMIUM 3–5 giorni. Risposta entro 2 ore durante l'orario di lavoro.",
+    contact_email_sub: "Risposta più rapida",
+    contact_urgent_sub: "Per elaborazioni urgenti",
+    contact_hours_sub: "Orario di lavoro",
+    footer: "© 2026 Elaborazione Documenti · Revisione, sintesi, struttura · Primo documento gratuito · Riservato"
+  }
+};
+
+// ─── DOM REFS ────────────────────────────────────────────────────────────────
+const els = {
+  logo_name: document.getElementById("logo_name"),
+  nav_how: document.getElementById("nav_how"),
+  nav_example: document.getElementById("nav_example"),
+  nav_packages: document.getElementById("nav_packages"),
+  nav_instructions: document.getElementById("nav_instructions"),
+  nav_contact: document.getElementById("nav_contact"),
+  badge_fast: document.getElementById("badge_fast"),
+  badge_conf: document.getElementById("badge_conf"),
+  badge_human: document.getElementById("badge_human"),
+  h1_line1: document.getElementById("h1_line1"),
+  h1_line2: document.getElementById("h1_line2"),
+  hero_desc: document.getElementById("hero_desc"),
+  cta_send_file: document.getElementById("cta_send_file"),
+  cta_packages: document.getElementById("cta_packages"),
+  section_process: document.getElementById("section_process"),
+  h2_process: document.getElementById("h2_process"),
+  process_sub: document.getElementById("process_sub"),
+  step1_title: document.getElementById("step1_title"),
+  step1_body: document.getElementById("step1_body"),
+  step2_title: document.getElementById("step2_title"),
+  step2_body: document.getElementById("step2_body"),
+  step3_title: document.getElementById("step3_title"),
+  step3_body: document.getElementById("step3_body"),
+  section_example: document.getElementById("section_example"),
+  h2_example: document.getElementById("h2_example"),
+  example_sub: document.getElementById("example_sub"),
+  label_before: document.getElementById("label_before"),
+  label_after: document.getElementById("label_after"),
+  stat_pages: document.getElementById("stat_pages"),
+  stat_pages_lbl: document.getElementById("stat_pages_lbl"),
+  stat_read_lbl: document.getElementById("stat_read_lbl"),
+  stat_struct_lbl: document.getElementById("stat_struct_lbl"),
+  stat_keys: document.getElementById("stat_keys"),
+  stat_keys_lbl: document.getElementById("stat_keys_lbl"),
+  stat_review_lbl: document.getElementById("stat_review_lbl"),
+  stat_clear: document.getElementById("stat_clear"),
+  stat_clear_lbl: document.getElementById("stat_clear_lbl"),
+  example_footer: document.getElementById("example_footer"),
+  example_before_box: document.getElementById("example_before_box"),
+  example_after_box: document.getElementById("example_after_box"),
+  section_packages: document.getElementById("section_packages"),
+  h2_packages: document.getElementById("h2_packages"),
+  packages_sub: document.getElementById("packages_sub"),
+  pkg_basic_tag: document.getElementById("pkg_basic_tag"),
+  pkg_basic_price: document.getElementById("pkg_basic_price"),
+  pkg_basic_list: document.getElementById("pkg_basic_list"),
+  pkg_basic_cta: document.getElementById("pkg_basic_cta"),
+  pkg_popular: document.getElementById("pkg_popular"),
+  pkg_std_tag: document.getElementById("pkg_std_tag"),
+  pkg_std_price: document.getElementById("pkg_std_price"),
+  pkg_std_list: document.getElementById("pkg_std_list"),
+  pkg_std_cta: document.getElementById("pkg_std_cta"),
+  pkg_prem_tag: document.getElementById("pkg_prem_tag"),
+  pkg_prem_price: document.getElementById("pkg_prem_price"),
+  pkg_prem_list: document.getElementById("pkg_prem_list"),
+  pkg_prem_cta: document.getElementById("pkg_prem_cta"),
+  section_instructions: document.getElementById("section_instructions"),
+  h2_instructions: document.getElementById("h2_instructions"),
+  instructions_sub: document.getElementById("instructions_sub"),
+  instr1_title: document.getElementById("instr1_title"),
+  instr1_body: document.getElementById("instr1_body"),
+  instr2_title: document.getElementById("instr2_title"),
+  instr2_body: document.getElementById("instr2_body"),
+  instr3_title: document.getElementById("instr3_title"),
+  instr3_body: document.getElementById("instr3_body"),
+  instr4_title: document.getElementById("instr4_title"),
+  instr4_body: document.getElementById("instr4_body"),
+  instr_free_title: document.getElementById("instr_free_title"),
+  instr_free_body: document.getElementById("instr_free_body"),
+  email_sample: document.getElementById("email_sample"),
+  privacy_text: document.getElementById("privacy_text"),
+  section_contact: document.getElementById("section_contact"),
+  h2_contact: document.getElementById("h2_contact"),
+  contact_sub: document.getElementById("contact_sub"),
+  contact_email_sub: document.getElementById("contact_email_sub"),
+  contact_urgent_sub: document.getElementById("contact_urgent_sub"),
+  contact_hours_sub: document.getElementById("contact_hours_sub"),
+  footer: document.getElementById("footer")
+};
+
+// ─── APPLY LANGUAGE ──────────────────────────────────────────────────────────
+function applyLang(lang) {
+  const t = T[lang];
+  if (!t) return;
+
+  for (const key of Object.keys(t)) {
+    const el = els[key];
+    if (!el) continue;
+
+    if (Array.isArray(t[key])) {
+      if (key === "example_before" || key === "example_after") {
+        el.innerHTML = t[key].map(line => `<span>${escapeHtml(line)}</span>`).join("<br>");
+      }
+      continue;
+    }
+
+    if (key === "instr2_body") {
+      el.innerHTML = t[key];
+      continue;
+    }
+
+    el.textContent = t[key];
+  }
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ─── LANGUAGE SELECTOR EVENTS ──────────────────────────────────────────────
+document.querySelectorAll(".lang-btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    const lang = this.dataset.lang;
+    document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+    applyLang(lang);
+  });
+});
+
+// ─── INITIAL: SR ────────────────────────────────────────────────────────────
+applyLang("sr");
+</script>
+</body>
+</html>

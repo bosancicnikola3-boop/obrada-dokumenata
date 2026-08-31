@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pregled fajlova — ObradaDokumenata</title>
+<style>
+  :root {
+    --primary: #1a3a5c;
+    --accent: #2a62a0;
+    --light: #f4f6f8;
+    --border: #d0d4da;
+    --dark: #2c3e50;
+    --muted: #5a6675;
+    --danger: #c0392b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background: #fafafa;
+    color: var(--dark);
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+
+  .header {
+    text-align: center;
+    padding: 28px 20px 20px;
+    background: linear-gradient(135deg, #1a3a5c 0%, #2a62a0 100%);
+    color: white;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .header h1 { font-size: 1.7em; margin: 0 0 6px; }
+  .header p { margin: 0; opacity: 0.9; font-size: 0.9em; }
+
+  .status-bar {
+    background: #f8f9fa;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85em;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .status-badge {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+  .status-badge.warning { background: #fff8e1; color: #f57f17; }
+  .status-badge.danger { background: #ffebee; color: #c62828; }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 0 0 20px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .card-header {
+    background: var(--light);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-body { padding: 14px 16px; }
+
+  .file-list { list-style: none; padding: 0; margin: 0; }
+
+  .file-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light);
+  }
+  .file-row:last-child { border-bottom: none; }
+
+  .file-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--light);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    flex-shrink: 0;
+    color: var(--primary);
+  }
+  .file-icon.pdf { background: #fff3cd; color: #e67e22; }
+  .file-icon.xlsx { background: #e3f2fd; color: #1565c0; }
+  .file-icon.html { background: #e8f5e9; color: #2e7d32; }
+  .file-icon.md { background: #f3e5f5; color: #7b1fa2; }
+
+  .file-info { flex: 1; min-width: 0; }
+  .file-path {
+    font-family: monospace;
+    font-size: 0.8em;
+    color: var(--muted);
+    word-break: break-all;
+    margin: 2px 0 6px;
+    background: #fafafa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+  }
+  .file-name { font-weight: bold; color: var(--dark); margin-bottom: 2px; }
+  .file-desc { font-size: 0.9em; color: var(--muted); }
+  .file-meta {
+    font-size: 0.78em;
+    color: var(--muted);
+    margin-top: 4px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .actions { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 0.78em;
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--primary);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .btn:hover { background: #e0e7ef; }
+  .btn.primary { background: var(--primary); color: white; border-color: var(--primary); }
+  .btn.primary:hover { background: #15324d; }
+
+  table.grid { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+  table.grid th { background: var(--primary); color: white; padding: 6px 10px; text-align: left; font-size: 0.85em; }
+  table.grid td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+  table.grid tr:nth-child(even) td { background: var(--light); }
+
+  .small { font-size: 0.8em; color: var(--muted); }
+  .note { background: var(--light); padding: 8px 12px; border-radius: 4px; font-size: 0.85em; color: var(--muted); margin: 8px 0; }
+  .highlight-box {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 0.9em;
+  }
+  .highlight-box.warn { background: #fff3cd; border-left-color: #ff9800; }
+  .highlight-box.info { background: #e3f2fd; border-left-color: #2196f3; }
+
+  .footer { text-align: center; padding: 16px; color: var(--muted); font-size: 0.8em; border-top: 1px solid var(--border); margin-top: 20px; }
+
+  details { margin: 6px 0; border: 1px solid var(--border); border-radius: 4px; padding: 6px 10px; background: var(--light); }
+  summary { cursor: pointer; font-weight: bold; color: var(--primary); font-size: 0.9em; user-select: none; }
+  details[open] summary { margin-bottom: 6px; }
+  details p { margin: 6px 0 0; font-size: 0.85em; color: var(--dark); }
+  summary::marker { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+  <h1>📂 Pregled fajlova — ObradaDokumenata</h1>
+  <p>Poslednja ažuracija: <span id="update-date">28.08.2026</span></p>
+</div>
+
+<div class="status-bar">
+  <span>📌 Trenutni projekat: Obrada dokumenata — pregledna obrada PDF-ova za klijente</span>
+  <span class="status-badge">Spremno za korišćenje</span>
+</div>
+
+<div class="card">
+  <div class="card-header">⭐ Trenutni projekat / cilj (30 dana)</div>
+  <div class="card-body">
+    <ul style="margin:0; padding:0 0 0 1.2em;">
+      <li>✅ <strong>Web sajt</strong> kreiran i pregledan (index.html)</li>
+      <li>✅ <strong>Poruke</strong> za LinkedIn, Facebook, email (poruke.md)</li>
+      <li>✅ <strong>Tracking Excel</strong> — 4 sheet-ova (ObradaDokumenata_Pracenje.xlsx)</li>
+      <li>🔄 <strong>Biznis plan</strong> — kratak, fokusiran (HTML fajl)</li>
+      <li>📌 <strong>Prvi klijenti</strong> — besplatan test → plaćeni klijenti</li>
+    </ul>
+    <div class="highlight-box">
+      <strong>Sledeći korak:</strong> Objavljivanje sajta + slanje prvih poruka (LinkedIn, Facebook, email)
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">📁 Fajlovi na desktopu — gde su i šta sadrže</div>
+  <div class="card-body">
+
+    <ul class="file-list">
+
+      <li class="file-row">
+        <div class="file-icon html">🌐</div>
+        <div class="file-info">
+          <div class="file-name">Web sajt — <code>index.html</code></div>
+          <div class="file-path">C:\Users\focus\Desktop\obrada-dokumenata\index.html</div>
+          <div class="file-desc">Jednostranični web sajt — naslov, kako radi, paketi i cene, before/after primer, kontakt forma (email, Viber, Telegram).</div>
+          <div class="actions">
+            <a href="file:///C:/Users/focus/Desktop/obrada-dokumenata/index.html" class="btn primary" target="_blank">▶ Otvori u browseru</a>
+            <a href="file:///C:/Users/focus/Desktop/obrada-dokumenata/index.html" class="btn" target="_blank">📄 Prijavi kao fajl</a>
+          </div>
+          <div class="file-meta">
+            <span>Tip: HTML fajl</span>
+            <span>Status: ✅ spremno</span>
+            <span>Preporuka: otvori u Chrome/Edge/Firefox</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="file-row">
+        <div class="file-icon md">📝</div>
+        <div class="file-info">
+          <div class="file-name">Poruke — <code>poruke.md</code></div>
+          <div class="file-path">C:\Users\focus\Desktop\obrada-dokumenata\poruke.md</div>
+          <div class="file-desc">Predlošci poruka za: LinkedIn (direktna poruka), Facebook grupe / objave, email kompanijama, direktan kontakt (Viber/Telegram). Kopiraj i pošalji.</div>
+          <div class="actions">
+            <a href="file:///C:/Users/focus/Desktop/obrada-dokumenata/poruke.md" class="btn primary" target="_blank">▶ Prikaži u browseru</a>
+            <a href="file:///C:/Users/focus/Desktop/obrada-dokumenata/poruke.md" class="btn" target="_blank">📄 Prijavi kao fajl</a>
+          </div>
+          <div class="file-meta">
+            <span>Tip: Markdown fajl</span>
+            <span>Status: ✅ spremno</span>
+            <span>Preporuka: kopiraj tekst odjednom</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="file-row">
+        <div class="file-icon xlsx">📊</div>
+        <div class="file-info">
+          <div class="file-name">Tracking Excel — <code>ObradaDokumenata_Pracenje.xlsx</code></div>
+          <div class="file-path">C:\Users\focus\Desktop\ObradaDokumenata_Pracenje.xlsx</div>
+          <div class="file-desc">4 sheet-ova: <strong>Klijent-praćenje</strong> (tabela sa ID, datum, klijent, tip, kontakt, tip dokumenta, fajl, paket, cena, status, napomena, datum slanja — sa dropdownovima i uslovnim bojama), <strong>Paketi i cene</strong> (BASIC/STANDARD/PREMIUM/HITNA/MEŠEČNI), <strong>Prvi koraci</strong> (checklist 10 koraka sa statusom), <strong>Poruke</strong> (predlošci sa statusom da li je poslato).</div>
+          <div class="actions">
+            <a href="file:///C:/Users/focus/Desktop/ObradaDokumenata_Pracenje.xlsx" class="btn primary" target="_blank">▶ Otvori u Excelu</a>
+            <a href="file:///C:/Users/focus/Desktop/ObradaDokumenata_Pracenje.xlsx" class="btn" target="_blank">📄 Prijavi kao fajl</a>
+          </div>
+          <div class="file-meta">
+            <span>Tip: Excel (.xlsx)</span>
+            <span>Status: ✅ spremno</span>
+            <span>Preporuka: koristi Excel 2016+</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="file-row">
+        <div class="file-icon html">📄</div>
+        <div class="file-info">
+          <div class="file-name">Biznis plan — <code>obrada_dokumenata_biznis_plan.html</code></div>
+          <div class="file-path">C:\Users\focus\Desktop\obrada-dokumenata\obrada_dokumenata_biznis_plan.html</div>
+          <div class="file-desc">Kratak biznis plan — pregledan, sa deonicama: misija, ciljevi, usluge, paketi, cene, putevi do klijenata, budget, risk, KPI, 30-dnevi plan. Mоже se otvoriti u browseru.</div>
+          <div class="actions">
+            <a href="file:///C:/Users/focus/Desktop/obrada-dokumenata/obrada_dokumenata_biznis_plan.html" class="btn primary" target="_blank">▶ Otvori u browseru</a>
+            <a href="file:///C:/Users/focus/Desktop/obrada-dokumenata/obrada_dokumenata_biznis_plan.html" class="btn" target="_blank">📄 Prijavi kao fajl</a>
+          </div>
+          <div class="file-meta">
+            <span>Tip: HTML fajl</span>
+            <span>Status: ✅ spremno</span>
+            <span>Preporuka: otvori u browseru</span>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">📊 Excel — detaljniji pregled (4 sheet-ova)</div>
+  <div class="card-body">
+
+    <h3>Sheet 1: Klijent-praćenje</h3>
+    <table class="grid">
+      <tr><th style="width:20%">Kolona</th><th>Opis</th></tr>
+      <tr><td><strong>ID</strong></td><td>Automaticki broj (1, 2, 3…)</td></tr>
+      <tr><td><strong>Datum prijema</strong></td><td>Datum kada je klijent/fajl primljen</td></tr>
+      <tr><td><strong>Klijent / Naziv</strong></td><td>Naziv klijenta, kompanije, osobe</td></tr>
+      <tr><td><strong>Tip klijenta</strong></td><td>Dropdown: Poslovna firma, Pravna kancelarija, Studenti/akademija, NGO/udruženje, Samostalni profesionalac, Ostalo</td></tr>
+      <tr><td><strong>Kontakt</strong></td><td>Email, telefon, Viber, Telegram, itd.</td></tr>
+      <tr><td><strong>Tip dokumenta</strong></td><td>Dropdown: PDF, Word (.docx), Excel (.xlsx), Slika/PDF sa skenerom, Tekst (.txt, .md), Dokument sa slikama, PDF sa tabelama, PDF+Word+Excel (više fajlova)</td></tr>
+      <tr><td><strong>Fajl / Naziv fajla</strong></td><td>Ime fajla ili opis</td></tr>
+      <tr><td><strong>Paket</strong></td><td>Dropdown: BASIC, STANDARD, PREMIUM, Hitna obrada, Mesecni paket</td></tr>
+      <tr><td><strong>Cena (RSD)</strong></td><td>Cena u dinarima</td></tr>
+      <tr><td><strong>Status</strong></td><td>Dropdown: Nova, U obradi, Čekam fajl, Verifikacija izlaza, Izvod poslat, Plaćeno, Završeno, Otkazano — <em>sa condicional bojama</em></td></tr>
+      <tr><td><strong>Napomena</strong></td><td>Bilješka (feedback, napomena za sljedeći korak, itd.)</td></tr>
+      <tr><td><strong>Datum slanja izlaza</strong></td><td>Datum kada je izlaz poslat klijentu</td></tr>
+    </table>
+    <p class="small">Dropdowns su već podešeni — kliknuta na ćeliju i odaberi iz liste.</p>
+
+    <h3>Sheet 2: Paketi i cene</h3>
+    <table class="grid">
+      <tr><th>Paket</th><th>Šta uključuje</th><th>Maks.</th><th>Vreme</th><th>Cena (RSD)</th></tr>
+      <tr><td><strong>BASIC</strong></td><td>Sažetak — izdvojene ključne tačke, kratki pregled sadržaja</td><td>Do 20 strana (ili 1 fajl do 5 MB)</td><td>24h (1 radni dan)</td><td>300</td></tr>
+      <tr><td><strong>STANDARD</strong></td><td>Sažetak + struktura + akcioni elementi</td><td>Do 30 strana (ili do 3 fajlova, 15 MB)</td><td>2–3 radna dana</td><td>800</td></tr>
+      <tr><td><strong>PREMIUM</strong></td><td>Puna obrada — formatiran izlaz (Word/PDF), ljudska provera</td><td>Složeniji dokumenti</td><td>3–5 radnih dana</td><td>1.500+</td></tr>
+      <tr><td><strong>HITNA OBRADA</strong></td><td>Urgentna — isti sadržaj kao BASIC/STANDARD, kraći rok</td><td>Do 15 strana</td><td>4–8h</td><td>Cena paketa + 50%</td></tr>
+      <tr><td><strong>MEŠEČNI PAKET</strong></td><td>Fiksna cena za redne klijente</td><td>Npr. 10 fajlova/mesec</td><td>Dogovor</td><td>Dogovor (npr. 5.000+/mesec)</td></tr>
+    </table>
+    <p class="small">Alternativa: <strong>cena po strani</strong> — BASIC: 15–25 RSD/strana, STANDARD: 40–60 RSD/strana, PREMIUM: po dogovoru.</p>
+
+    <h3>Sheet 3: Prvi koraci (checklist)</h3>
+    <table class="grid">
+      <tr><th>#</th><th>Korak</th><th>Rok (dani)</th><th>Status</th></tr>
+      <tr><td>1</td><td>Web sajt objavljen</td><td>1</td><td>Nije uradjeno</td></tr>
+      <tr><td>2</td><td>Poruke poslati na LinkedIn (5–10 direktnih poruka)</td><td>1–3</td><td>Nije uradjeno</td></tr>
+      <tr><td>3</td><td>Poruke u Facebook grupe (3–5 grupa)</td><td>2–3</td><td>Nije uradjeno</td></tr>
+      <tr><td>4</td><td>Email poruke kompanijama/kancelarijama (5–10)</td><td>2–5</td><td>Nije uradjeno</td></tr>
+      <tr><td>5</td><td>Prvi testni klijent — besplatan fajl, feedback</td><td>3–7</td><td>Nije uradjeno</td></tr>
+      <tr><td>6</td><td>Prvi plaćeni klijent — BASIC ili STANDARD</td><td>7–14</td><td>Nije uradjeno</td></tr>
+      <tr><td>7</td><td>Reference / recenzije od prvih klijenata</td><td>14–21</td><td>Nije uradjeno</td></tr>
+      <tr><td>8</td><td>Tracking Excel/Notion popunjen</td><td>7–21</td><td>Nije uradjeno</td></tr>
+      <tr><td>9</td><td>Prikupljeni kontakti — praćenje reakcija</td><td>21–30</td><td>Nije uradjeno</td></tr>
+      <tr><td>10</td><td>Pojačanje — više poruka, više grupa, partnerstva</td><td>30+</td><td>Nije uradjeno</td></tr>
+    </table>
+
+    <h3>Sheet 4: Poruke (predlošci)</h3>
+    <table class="grid">
+      <tr><th>Kanál</th><th>#</th><th>Tekst poruke</th><th>Status</th></tr>
+      <tr><td>LinkedIn</td><td>1</td><td>Pozdrav, [Ime], vrlo prilika ako koristiš PDF dokumente… (besplatan test)</td><td>Nije poslato</td></tr>
+      <tr><td>LinkedIn</td><td>2</td><td>Pozdrav, [Ime], koliko često se susrećeš sa PDF dokumentima… (besplatan test)</td><td>Nije poslato</td></tr>
+      <tr><td>Facebook grupa</td><td>1</td><td>Poštovani, ako imate PDF dokumente… (paketi, cene, kontakt)</td><td>Nije poslato</td></tr>
+      <tr><td>Facebook grupa</td><td>2</td><td>Dragi, imate li PDF-ova koji su teški za pregledanje?… (kratka verzija)</td><td>Nije poslato</td></tr>
+      <tr><td>Email kompanija</td><td>1</td><td>Poštovani, verujem da imate PDF dokumente… (formalan, sa cenama, kontaktom)</td><td>Nije poslato</td></tr>
+      <tr><td>Direktan kontakt</td><td>1</td><td>Zdravo, [Ime], znaš li neko (ili ti) tko ima PDF dokumente…</td><td>Nije poslato</td></tr>
+    </table>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">📄 Biznis plan — pregled</div>
+  <div class="card-body">
+
+    <div class="row" style="display:flex; gap:16px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:240px;">
+        <h3>🎯 Misija</h3>
+        <p style="margin:0.3em 0;">Pomažem ljudi i kompanije da lakše pregledavaju PDF dokumente — sažmem, izdvojim bitne stvari i formatiram u preglednu verziju.</p>
+        <p class="small">Ne morate čitati 20+ strana dokumenata — dobijate pregled u 24h.</p>
+      </div>
+      <div style="flex:1; min-width:240px;">
+        <h3>👥 Ciljana grupa</h3>
+        <ul style="margin:0.3em 0; padding:0 0 0 1.2em;">
+          <li><strong>Poslovne firme</strong> — ugovori, izveštaji, uslovi, dokumentacija</li>
+          <li><strong>Pravne kancelarije</strong> — pravni dokumenti, presude, preglednost</li>
+          <li><strong>Studenti / akademija</strong> — literatura, seminarski radovi, izveštaji</li>
+          <li><strong>NGO / udruženja</strong> — izveštaji, dokumentacija, članci</li>
+          <li><strong>Samostalni profesionalci</strong> — PDF-ovi sa skenerima, dokumenti, bilješke</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row" style="display:flex; gap:16px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:240px;">
+        <h3>📦 Usluga — kako radi</h3>
+        <ol style="margin:0.3em 0; padding:0 0 0 1.2em;">
+          <li>Klijent šalje PDF/tekst/fajl na email, Viber ili Telegram</li>
+          <li>Ti preuzimaš fajl</li>
+          <li>Obradjuješ (sažetak, struktura, akcioni elementi, formatiranje)</li>
+          <li>Vraćaš izlaz (Word, PDF, tekst — po želji klijenta)</li>
+          <li>Klijent dobija preglednu verziju u roku (24h, 2–3 dana, itd.)</li>
+        </ol>
+      </div>
+      <div style="flex:1; min-width:240px;">
+        <h3>💰 Paketi</h3>
+        <table class="grid">
+          <tr><th>Paket</th><th>Cena</th><th>Rok</th></tr>
+          <tr><td>BASIC</td><td>300 RSD</td><td>24h</td></tr>
+          <tr><td>STANDARD</td><td>800 RSD</td><td>2–3 dana</td></tr>
+          <tr><td>PREMIUM</td><td>1.500+ RSD</td><td>3–5 dana</td></tr>
+          <tr><td>Hitna</td><td>+50%</td><td>4–8h</td></tr>
+          <tr><td>Mesecni</td><td>dogovor</td><td>mesecno</td></tr>
+        </table>
+        <p class="small">Alternativa: cena po strani (15–60 RSD/strana) za duge dokumente.</p>
+      </div>
+    </div>
+
+    <div class="row" style="display:flex; gap:16px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:240px;">
+        <h3>👣 Put do klijenata</h3>
+        <ol style="margin:0.3em 0; padding:0 0 0 1.2em;">
+          <li><strong>Directni kontakt</strong> — poznati, poznanstva, LinkedIn, Facebook</li>
+          <li><strong>Objave u grupama</strong> — LinkedIn grupe, Facebook grupe (biznis, pravne usluge, itd.)</li>
+          <li><strong>Email nudbe</strong> — kompanije, kancelarije, studentske službe</li>
+          <li><strong>Web sajt</strong> — centralni presek, prezentacija usluge, prijem fajlova</li>
+        </ol>
+        <div class="highlight-box">
+          <strong>Ključ:</strong> Prvi test je besplatan — da vidiš kako radi, da dobiješ referencu.
+        </div>
+      </div>
+      <div style="flex:1; min-width:240px;">
+        <h3>⚠️ Rizici</h3>
+        <ul style="margin:0.3em 0; padding:0 0 0 1.2em;">
+          <li><strong>Bez referenci na početku</strong> — reši sa besplatnim testom za prvih 3 klijenata</li>
+          <li><strong>Konkurencija</strong> — naglasi brzinu, kvalitet, preglednost, "prvi test je besplatan"</li>
+          <li><strong>Vreme</strong> — ako imaš puno zahtijeva, paketiš i ograniči rok</li>
+          <li><strong>Automatizacija</strong> — kasnije možeš koristiti Hermes + Python + reportlab za bržu obradu</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row" style="display:flex; gap:16px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:240px;">
+        <h3>📊 KPI (šta pratiš)</h3>
+        <ul style="margin:0.3em 0; padding:0 0 0 1.2em;">
+          <li>Broj poslatih poruka (LinkedIn, Facebook, email)</li>
+          <li>Broj odziva / zahtjeva</li>
+          <li>Broj obradjenih fajlova</li>
+          <li>Prihodi (po mjesecu)</li>
+          <li>Broj rednih klijenata (mesecni paket)</li>
+          <li>Recenzije / reference</li>
+        </ul>
+      </div>
+      <div style="flex:1; min-width:240px;">
+        <h3>🚀 30-dnevi plan</h3>
+        <table class="grid">
+          <tr><th>Period</th><th>Šta radiš</th></tr>
+          <tr><td><strong>Dan 1–3</strong></td><td>Objavi web sajt, pošalji 5–10 LinkedIn poruka, objavi u 3–5 Facebook grupa</td></tr>
+          <tr><td><strong>Dan 4–7</strong></td><td>Pošalji 5–10 email nuda kompanijama, primi prvi zahtjev, obradi prvi testni fajl</td></tr>
+          <tr><td><strong>Dan 8–14</strong></td><td>Prvi plaćeni klijent, prikupi feedback, zatraži recenziju</td></tr>
+          <tr><td><strong>Dan 15–21</strong></td><td>Prikupi reference, poboljšaj proces, pošalji još poruka</td></tr>
+          <tr><td><strong>Dan 22–30</strong></td><td>Povećaj broj poruka, probaj partnerstva, razmotri automatizaciju</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="note">
+  <strong>Napomena:</strong> Link-kadovi ka fajlovima rade ako fajlovi postoje na navedenim lokacijama. Ako neki fajl nije kreiran ili je obrisan, link neće raditi.
+</div>
+
+<div class="footer">
+  ObradaDokumenata — pregledna obrada PDF-ova za klijente &nbsp;|&nbsp; 28.08.2026
+</div>
+
+</div>
+
+</body>
+</html>
