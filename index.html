@@ -246,6 +246,55 @@
   /* ── FOOTER ── */
   footer { text-align: center; padding: 28px 0 36px; color: var(--text-muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 36px; }
 
+  .pkg-icon {
+    width: 28px; height: 28px;
+    background: var(--accent-glow);
+    border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+  .pkg-icon svg { width: 16px; height: 16px; }
+  .step-icon {
+    width: 24px; height: 24px;
+    background: var(--accent-glow);
+    border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--accent2);
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .step-icon svg { width: 14px; height: 14px; }
+
+  /* ── HERO FILE PREVIEW ── */
+  .hero-preview {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(245,176,66,0.3);
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: var(--accent);
+    font-size: 0.78rem; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .hero-preview svg { width: 16px; height: 16px; }
+  .hero-preview strong { color: #fff; }
+
+  /* ── CONTACT CTA ── */
+  .contact-cta {
+    text-align: center; margin-top: 28px;
+  }
+  .contact-cta .btn {
+    padding: 14px 32px; font-size: 1rem;
+    width: 100%; max-width: 320px;
+  }
+
+  /* ── FOOTER PRIVACY LINE ── */
+  .footer-privacy {
+    margin-top: 10px; color: var(--text-muted);
+    font-size: 0.78rem; font-style: italic;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
     .hero h1 { font-size: 2.2rem; }
@@ -289,6 +338,10 @@
         <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span id="badge_fast">24h turnaround</span></span>
         <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span id="badge_conf">Confidential</span></span>
         <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 14 9 9 12 14 20 4"/></svg><span id="badge_human">Human-reviewed</span></span>
+      </div>
+      <div class="hero-preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12a2 2 0 0 1 2 2v16H6V4z"/><path d="M6 8h12v2H6z"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+        <span><strong>Dokument</strong> → pregled u 24h</span>
       </div>
       <h1><span id="h1_line1">Your PDF, Word or text</span><br><span id="h1_line2">can be clear in 24 hours</span></h1>
       <p id="hero_desc">I review, summarise, structure and format your documents — in Word, PDF or plain text. No technical knowledge needed on your side. First document is free.</p>
@@ -363,13 +416,15 @@
       <p class="section-sub" id="packages_sub">From a simple summary to a complete processed document. First document is free — try it and see the result.</p>
       <div class="pkg-grid">
         <div class="pkg">
-          <div class="pkg-tag" id="pkg_basic_tag">Basic processing</div>
+          <div class="pkg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="pkg-tag" id="pkg_basic_tag">Osnovna obrada</div>
           <h3>🟢 BASIC</h3>
           <div class="pkg-price" id="pkg_basic_price">do 5€</div>
           <ul id="pkg_basic_list"></ul>
           <div class="pkg-cta"><a href="#contact" class="btn btn-secondary" id="pkg_basic_cta">Send file →</a></div>
         </div>
         <div class="pkg featured">
+          <div class="pkg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
           <span class="pkg-popular-badge" id="pkg_popular">Most popular</span>
           <div class="pkg-tag" id="pkg_std_tag">Standard processing</div>
           <h3>🟡 STANDARD</h3>
@@ -378,7 +433,8 @@
           <div class="pkg-cta"><a href="#contact" class="btn btn-primary" id="pkg_std_cta">Send file →</a></div>
         </div>
         <div class="pkg">
-          <div class="pkg-tag" id="pkg_prem_tag">Full processing</div>
+          <div class="pkg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="pkg-tag" id="pkg_prem_tag">Puna obrada</div>
           <h3>🔴 PREMIUM</h3>
           <div class="pkg-price" id="pkg_prem_price">po dogovoru</div>
           <ul id="pkg_prem_list"></ul>
