@@ -229,7 +229,7 @@
   .privacy-box svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--success); }
 
   /* ── CONTACT ── */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
   .contact-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius-lg); padding: 24px; text-align: center;
@@ -242,6 +242,125 @@
   .contact-icon svg { width: 22px; height: 22px; }
   .contact-email { color: var(--accent2); font-weight: 700; font-size: 0.95rem; word-break: break-all; }
   .contact-sub { color: var(--text-muted); font-size: 0.82rem; margin-top: 4px; }
+
+  /* ── CONTACT FORM ── */
+  .contact-form {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 28px 32px; margin-top: 12px;
+  }
+  .contact-form h3 {
+    color: var(--text); font-size: 1rem; font-weight: 600; margin-bottom: 4px;
+  }
+  .contact-form .form-note {
+    color: var(--text-muted); font-size: 0.82rem; margin-bottom: 20px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label {
+    font-size: 0.82rem; color: var(--text-muted); font-weight: 500;
+  }
+  .form-group input, .form-group textarea, .form-group select {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; color: var(--text);
+    font-size: 0.94rem; font-family: var(--font-sans); transition: border 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-file-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+    background: var(--surface2); border: 1px dashed var(--border); border-radius: 8px;
+    cursor: pointer; margin-bottom: 14px; }
+  .form-file-row.drag-over { border-color: var(--accent); background: rgba(245,176,66,0.06); }
+  .form-file-row .file-label { font-size: 0.85rem; color: var(--text-muted); flex: 1; }
+  .form-file-row input[type="file"] { display: none; }
+  .form-file-row .file-hint { font-size: 0.75rem; color: var(--text-muted); }
+  .form-actions { display: flex; gap: 12px; align-items: center; margin-top: 6px; }
+  .btn-send {
+    background: var(--accent); color: #0a0f1a; border: none; border-radius: var(--radius);
+    padding: 12px 28px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-sans); transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(245,176,66,0.25);
+  }
+  .btn-send:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,176,66,0.35); }
+  .btn-send:active { transform: translateY(0); }
+  .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .form-status {
+    margin-top: 14px; padding: 12px 16px; border-radius: 8px; font-size: 0.9rem;
+    display: none; align-items: flex-start; gap: 10px;
+  }
+  .form-status.show { display: flex; }
+  .form-status.success { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.3); color: var(--success); }
+  .form-status.error { background: rgba(251,113,133,0.08); border: 1px solid rgba(251,113,133,0.3); color: var(--danger); }
+  .form-status svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .form-privacy { margin-top: 18px; font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── CONTACT FORM ── */
+  .contact-form {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 28px 32px; margin-top: 16px;
+  }
+  .contact-form h3 {
+    color: var(--text); font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;
+  }
+  .contact-form .form-note {
+    color: var(--text-muted); font-size: 0.82rem; margin-bottom: 20px; line-height: 1.5;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label {
+    font-size: 0.82rem; color: var(--text-muted); font-weight: 500;
+  }
+  .form-group input, .form-group textarea, .form-group select {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; color: var(--text);
+    font-size: 0.94rem; font-family: var(--font-sans); transition: border 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-file-area {
+    position: relative; display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; background: var(--surface2);
+    border: 1px dashed var(--border); border-radius: 8px; cursor: pointer; margin-bottom: 16px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-file-area:hover, .form-file-area.drag-over {
+    border-color: var(--accent); background: rgba(245,176,66,0.05);
+  }
+  .form-file-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .form-file-icon { color: var(--accent2); flex-shrink: 0; }
+  .form-file-icon svg { width: 22px; height: 22px; }
+  .form-file-text { flex: 1; }
+  .form-file-text .file-label { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+  .form-file-text .file-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+  .form-file-name { font-size: 0.82rem; color: var(--accent2); font-weight: 600; }
+  .form-actions { display: flex; gap: 14px; align-items: center; margin-top: 6px; }
+  .btn-send {
+    background: var(--accent); color: #0a0f1a; border: none; border-radius: var(--radius);
+    padding: 13px 30px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-sans); transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    box-shadow: 0 4px 14px rgba(245,176,66,0.25);
+  }
+  .btn-send:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,176,66,0.35); }
+  .btn-send:active { transform: translateY(0); }
+  .btn-send:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+  .form-status {
+    margin-top: 14px; padding: 12px 16px; border-radius: 8px; font-size: 0.9rem;
+    display: none; align-items: flex-start; gap: 10px; line-height: 1.5;
+  }
+  .form-status.show { display: flex; }
+  .form-status.success { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.3); color: var(--success); }
+  .form-status.error   { background: rgba(251,113,133,0.08); border: 1px solid rgba(251,113,133,0.3); color: var(--danger); }
+  .form-status svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+  .form-privacy { margin-top: 18px; font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+  @media (max-width: 680px) {
+    .form-row { grid-template-columns: 1fr; }
+    .contact-form { padding: 22px 18px; }
+  }
 
   /* ── FOOTER ── */
   footer { text-align: center; padding: 28px 0 36px; color: var(--text-muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 36px; }
@@ -603,6 +722,46 @@ Potpisi:
           <div class="contact-email" style="font-size:0.85rem;">Radno vreme<br>Pon–Pet · 09–17h</div>
           <div class="contact-sub" id="contact_hours_sub">Radno vreme</div>
         </div>
+      </div>
+      <div class="contact-form">
+        <h3>Pošalji fajl za obradu</h3>
+        <p class="form-note" id="form_note">Popuni podatke ispod i priloži fajl. Kupim te 2h tokom radnog vremena.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form_name" id="form_name_lbl">Ime i prezime</label>
+            <input type="text" id="form_name" name="name" placeholder="npr. Marko Marković" required>
+          </div>
+          <div class="form-group">
+            <label for="form_email" id="form_email_lbl">Email</label>
+            <input type="email" id="form_email" name="email" placeholder="vas@email.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="form_subject" id="form_subject_lbl">Šta želiš da obradim</label>
+          <input type="text" id="form_subject" name="subject" placeholder="npr. Sažetak ugovora ili struktura prijave">
+        </div>
+        <div class="form-group full">
+          <label for="form_message" id="form_message_lbl">Poruka (šta je dokument, šta želiš, format)</label>
+          <textarea id="form_message" name="message" placeholder="Npr. Ugovor od 50 strana — trebam sažetak i izdvojene obaveze. Format izlaza: Word."></textarea>
+        </div>
+        <div class="form-file-area" id="form_file_area">
+          <input type="file" id="form_file" name="file" accept=".pdf,.docx,.doc,.jpg,.jpeg,.png,.xlsx,.csv,.txt,.pptx,.ppt">
+          <div class="form-file-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="form-file-text">
+            <div class="file-label" id="form_file_label">Dodaj fajl (PDF, Word, slika, Excel, tekst)</div>
+            <div class="file-hint" id="form_file_hint">Max 20MB — po želji</div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-send" id="form_submit">Pošalji →</button>
+        </div>
+        <div class="form-status" id="form_status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"></svg>
+          <span id="form_status_text"></span>
+        </div>
+        <p class="form-privacy" id="form_privacy"><strong>Poverljivo:</strong> Fajlovi se obrađuju samo za tebe, ne dele se trećim licima, i brišu se po završetku (po dogovoru). Za osetljive dokumente možeš zatražiti šifrovanje ili privatan kanal.</p>
       </div>
     </div>
   </section>
